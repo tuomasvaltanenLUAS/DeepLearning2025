@@ -48,34 +48,148 @@ categories = ['1: Cheap', '2: Avg-', '3: Avg+', '4: Expensive']
 # print(result)
 
 
-# # Creating the GUI window.
-# window = tkinter.Tk()
-# window.title("Title here")
-# window.geometry("800x100")
+# Creating the GUI window.
+window = tkinter.Tk()
+window.title("Mobile phone Price Predicterator v.1.0341246abf")
+window.geometry("500x780")
+window.option_add("*font", "lucida 12 bold")
 
-# # Creating our text widget.
-# sample_text = tkinter.Entry(window)
-# sample_text.pack()
+# labels and entries for each variable in the model
 
-# # Creating the function to set the text 
-# # with the help of button
-# def set_text_by_button():
+# create text label for the Entry with some vertical padding (pady)
+label1 = tkinter.Label(window, text="Battery Power (mAh)")
+label1.pack(pady=4)
 
-#     # Delete is going to erase anything
-#     # in the range of 0 and end of file,
-#     # The respective range given here
-#     sample_text.delete(0,"end")
+# create entry for battery
+entry_battery = tkinter.Entry(window)
+entry_battery.pack(pady=0)
+ 
+# create text label for the Entry with some vertical padding (pady)
+label2 = tkinter.Label(window, text="Front camera (MP)")
+label2.pack(pady=4)
+
+# create entry for battery
+entry_frontcam = tkinter.Entry(window)
+entry_frontcam.pack(pady=0)
+
+# create text label for the Entry with some vertical padding (pady)
+label3 = tkinter.Label(window, text="Primary camera (MP)")
+label3.pack(pady=4)
+
+# create entry for battery
+entry_primarycam = tkinter.Entry(window)
+entry_primarycam.pack(pady=0)
+
+# create text label for the Entry with some vertical padding (pady)
+label4 = tkinter.Label(window, text="Internal memory (Gb)")
+label4.pack(pady=4)
+
+# create entry for battery
+entry_intmemory = tkinter.Entry(window)
+entry_intmemory.pack(pady=0)
+
+# create text label for the Entry with some vertical padding (pady)
+label5 = tkinter.Label(window, text="RAM (Mb)")
+label5.pack(pady=4)
+
+# create entry for battery
+entry_ram = tkinter.Entry(window)
+entry_ram.pack(pady=0)
+
+# create text label for the Entry with some vertical padding (pady)
+label6 = tkinter.Label(window, text="Weight (g)")
+label6.pack(pady=4)
+
+# create entry for battery
+entry_weight = tkinter.Entry(window)
+entry_weight.pack(pady=0)
+
+# create text label for the Entry with some vertical padding (pady)
+label7 = tkinter.Label(window, text="Width (px)")
+label7.pack(pady=4)
+
+# create entry for battery
+entry_width_px = tkinter.Entry(window)
+entry_width_px.pack(pady=0)
+
+# create text label for the Entry with some vertical padding (pady)
+label8 = tkinter.Label(window, text="Height (px)")
+label8.pack(pady=4)
+
+# create entry for battery
+entry_height_px = tkinter.Entry(window)
+entry_height_px.pack(pady=0)
+
+# create text label for the Entry with some vertical padding (pady)
+label9 = tkinter.Label(window, text="Width (cm)")
+label9.pack(pady=4)
+
+# create entry for battery
+entry_width_cm = tkinter.Entry(window)
+entry_width_cm.pack(pady=0)
+
+# create text label for the Entry with some vertical padding (pady)
+label10 = tkinter.Label(window, text="Height (cm)")
+label10.pack(pady=4)
+
+# create entry for battery
+entry_height_cm = tkinter.Entry(window)
+entry_height_cm.pack(pady=0)
+
+# create text label for the Entry with some vertical padding (pady)
+label11 = tkinter.Label(window, text="Number of cores")
+label11.pack(pady=4)
+
+# create entry for battery
+entry_cores = tkinter.Entry(window)
+entry_cores.pack(pady=0)
+
+# create text label for the Entry with some vertical padding (pady)
+label12 = tkinter.Label(window, text="Talk time (h)")
+label12.pack(pady=4)
+
+# create entry for battery
+entry_talktime = tkinter.Entry(window)
+entry_talktime.pack(pady=0)
+
+# Creating the function to set the text 
+# with the help of button
+def set_prediction_result():
+    tester_row = {
+        'battery_power': int(entry_battery.get()), 
+        'fc': int(entry_frontcam.get()), 
+        'int_memory': int(entry_intmemory.get()), 
+        'mobile_wt': int(entry_weight.get()),
+        'n_cores': int(entry_cores.get()),
+        'pc': int(entry_primarycam.get()),
+        'px_width': int(entry_width_px.get()),
+        'px_height': int(entry_height_px.get()), 
+        'ram': int(entry_ram.get()),
+        'sc_h': int(entry_height_cm.get()), 
+        'sc_w': int(entry_width_cm.get()), 
+        'talk_time': int(entry_talktime.get()), 
+    }
+
+    categories = ['1: Cheap', '2: Avg-', '3: Avg+', '4: Expensive']
+
+    tester_row = pd.DataFrame([tester_row])
+    result = model.predict(tester_row)[0]
+    result_text = categories[np.argmax(result)]
     
-#     # Insert method inserts the text at
-#     # specified position, Here it is the
-#     # beginning
-#     sample_text.insert(0, "Text set by button")
+    result_string.set(f"Prediction: {result_text}")
 
-# # Setting up the button, set_text_by_button() 
-# # is passed as a command
-# set_up_button = tkinter.Button(window, height=1, width=10, text="Set", 
-#                     command=set_text_by_button)
+# Setting up the button, set_text_by_button() 
+# is passed as a command
+set_up_button = tkinter.Button(window, height=1, width=10, text="Set", 
+                    command=set_prediction_result)
 
-# set_up_button.pack()
+set_up_button.pack()
 
-# window.mainloop()
+result_string = tkinter.StringVar()
+result_string.set("Waiting for user input...")
+
+# connect the string variable into a label
+label_result = tkinter.Label(window, textvariable=result_string, fg="red")
+label_result.pack()
+
+window.mainloop()
