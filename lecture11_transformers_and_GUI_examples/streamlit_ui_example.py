@@ -43,6 +43,7 @@ st.title("Mobile phone prices model")
 # title of the sidebar for inputs
 st.sidebar.title("Input features")
 
+# create sliders for each support variable in our model
 continuous_var1 = st.sidebar.slider("Battery power", min_value=500.0, max_value=2500.0, value=1200.0, step=50.0)
 continuous_var2 = st.sidebar.slider("Front camera (MP)", min_value=0.0, max_value=20.0, value=4.0, step=1.0)
 continuous_var3 = st.sidebar.slider("Primary camera (MP)", min_value=0.0, max_value=24.0, value=10.0, step=1.0)
@@ -60,6 +61,7 @@ continuous_var12 = st.sidebar.slider("Weight (g)", min_value=80.0, max_value=200
 # in NumPy -array format
 
 # FOLLOW THE SAME ORDER AS IN THE ORIGINAL TESTER ROW
+# we basically just convert everything to NumPy-format for the model
 input_data = np.array([[
     continuous_var1,
     continuous_var2,
@@ -80,6 +82,7 @@ st.image("smartphone.jpg", caption="Smartphone", use_container_width=True)
 # the button that predicts through the model
 if st.button("Predict"):
     st.subheader("Prediction:")
+    
     # tester_row = pd.DataFrame([tester_row])
     result = model.predict(input_data)[0]
     result_text = categories[np.argmax(result)]
@@ -93,4 +96,4 @@ if st.button("Predict"):
 # streamlit run streamlit_ui_example.py
 
 # if using from root, try:
-# streamlit run /lecture11_transformers_and_gui/streamlit_ui_example.py
+# streamlit run lecture11_transformers_and_GUI_examples\streamlit_ui_example.py

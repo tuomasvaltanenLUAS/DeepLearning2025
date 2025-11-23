@@ -155,6 +155,8 @@ entry_talktime.pack(pady=0)
 # Creating the function to set the text 
 # with the help of button
 def set_prediction_result():
+    # simulate the tester_row -logic to perform inference in model
+    # inference => using the model in practice with new data
     tester_row = {
         'battery_power': int(entry_battery.get()), 
         'fc': int(entry_frontcam.get()), 
